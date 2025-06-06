@@ -38,7 +38,24 @@ jobs:
           cd dist
           zip -r ../assets.zip ./
 
-      - name: Create Release
-        run: hub release create $${{ inputs.release_name }} -a assets.zip
+      - name: Get short commit hash
+        id: git_short_hash
+        run: echo "::set-output name=hash::$(git rev-parse --short HEAD)"
+
+      - name: Create Tag
+        id: create_tag
+        run: |
+          git tag v${{ steps.git_short_hash.outputs.hash }}
+          git push origin v${{ steps.git_short_hash.outputs.hash }}
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.git_short_hash.outputs.hash }}
+          release_name: ${{ inputs.release_name }}
+          body: |
+            Release created automatically by GitHub Actions.
+          draft: false
