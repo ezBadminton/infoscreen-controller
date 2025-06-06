@@ -37,11 +37,8 @@ jobs:
         run: |
           cd dist
           zip -r ../assets.zip ./
-          
-      - name: Create GitHub release and upload assets
-        uses: softprops/action-gh-release@v2
-        with:
-          files: assets.zip
-          name: ${{ inputs.release_name }}
+
+      - name: Create Release
+        run: hub release create $${{ inputs.release_name }} -a assets.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
