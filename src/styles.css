@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+}
+
+.zoombar {
+    background-color: #333;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.zoombar input {
+    float: left;
+    display: block;
+    color: #c5c5c5;
+    background-color: #333;
+    text-align: center;
+    padding: 35px 16px;
+    width: 33.333%;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+:root {
+  touch-action: pan-x pan-y;
+  height: 100% 
+}

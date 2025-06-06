@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="src/styles.css">
+  <title>Infoscreen Controller</title>
+</head>
+
+<body>
+  <script type="module" src="/src/controller.js"></script>
+  <div class="zoombar">
+    <input type="button" value="Zoom +" onclick="window.handler.sendZoom(true)"/>
+    <input type="button" value="Reset" onclick="window.handler.sendReset()"/>
+    <input type="button" value="Zoom -" onclick="window.handler.sendZoom(false)"/>
+  </div>
+</body>
+
+</html>
