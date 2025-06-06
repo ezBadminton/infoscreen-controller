@@ -1,0 +1,47 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      api_endpoint:
+        description: "URL of the ezBadminton server's infoscreen controller endpoint"
+        required: true
+        default: "http://127.0.0.1:8080/api/ezbadminton/infoscreen/control"
+      release_name:
+        description: "Name of the GitHub release"
+        required: true
+        
+jobs:
+  build:
+    name: "Build & Release"
+    runs-on: ubuntu-latest
+    env:
+      VITE_API_ENDPOINT: ${{ inputs.api_endpoint }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          
+      - name: Install npm packages
+        run: npm ci
+
+      - name: Build vite project
+        run: npm run build
+        
+      - name: Zip the bundle
+        run: |
+          cd dist
+          zip -r ../assets.zip ./
+          
+      - name: Create GitHub release and upload assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: assets.zip
+          name: ${{ inputs.release_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
