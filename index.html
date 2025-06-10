@@ -9,12 +9,39 @@
 </head>
 
 <body>
+  <script type="module" src="/src/dialogs.js"></script>
+  <div class="competition-select-div">
+    <div class="select">
+      <select id="competition-select" onchange="window.handler.sendSelected(this)">
+        <option disabled selected value>Disziplin wählen</option>
+      </select>
+      <span class="focus"></span>
+    </div>
+  </div>
+  <div class="help-button">Wie funktioniert's?</div>
   <script type="module" src="/src/controller.js"></script>
   <div class="zoombar">
-    <input type="button" value="Zoom +" onclick="window.handler.sendZoom(true)"/>
-    <input type="button" value="Reset" onclick="window.handler.sendReset()"/>
-    <input type="button" value="Zoom -" onclick="window.handler.sendZoom(false)"/>
+    <input type="button" value="Zoom +" onclick="window.handler.sendZoom(true)" />
+    <input type="button" value="Reset" onclick="window.handler.sendReset()" />
+    <input type="button" value="Zoom -" onclick="window.handler.sendZoom(false)" />
   </div>
+  <dialog id="help-dialog">
+    <div class="modal-inner">
+      <span>Wie funktioniert's?</span>
+      <ul>
+        <li>Lege fest, welchen Spielplan der Bildschirm anzeigt, indem du die gewünschte Disziplin auswählst.</li>
+        <li>Zoome die Ansicht mit den unteren Buttons.</li>
+        <li>Benutze den Joystick in der Mitte, um die Ansicht zu bewegen.</li>
+      </ul>
+      <button autofocus>Schließen</button>
+    </div>
+  </dialog>
+  <dialog id="end-dialog">
+    <div class="modal-inner">
+      <span>Sitzung abgelaufen</span>
+      <p>Scanne den QR-Code erneut, um eine neue Sitzung zu starten.</p>
+    </div>
+  </dialog>
 </body>
 
 </html>
