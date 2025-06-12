@@ -70,8 +70,8 @@ class Controller {
     sendJoysickPosition() {
         var body = JSON.stringify({
             pan: {
-                x: this.lastJoystickPosition.x * 0.6,
-                y: this.lastJoystickPosition.y * -0.6,
+                x: this.lastJoystickPosition.x * 0.75,
+                y: this.lastJoystickPosition.y * -0.75,
             },
         });
         this.sendPost(body);
