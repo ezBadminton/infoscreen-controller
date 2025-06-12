@@ -22,8 +22,18 @@ class Controller {
         }
         if (response.ok) {
             const infoItems = await response.json();
+            if (!Array.isArray(infoItems) || infoItems.length != 2) {
+                return;
+            }
+            const ids = infoItems[0];
+            const displayNames = infoItems[1];
+            if (!Array.isArray(ids) || !Array.isArray(displayNames) || ids.length != displayNames.length) {
+                return;
+            }
             const select = document.querySelector("#competition-select")
-            for(const [id, displayName] of Object.entries(infoItems).reverse()) {
+            for (let i = 0; i < ids.length; i++) {
+                let id = ids[i];
+                let displayName = displayNames[i];
                 let option = document.createElement("option");
                 option.setAttribute("value", id);
                 option.textContent = displayName;
@@ -81,7 +91,7 @@ class Controller {
         });
         this.sendPost(body);
     }
-    
+
     sendSelected(option) {
         var body = JSON.stringify({
             select: option.value,
