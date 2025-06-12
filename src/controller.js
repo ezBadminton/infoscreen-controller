@@ -86,6 +86,8 @@ class Controller {
         var body = JSON.stringify({
             select: option.value,
         });
+        option.value = "";
+        document.activeElement.blur();
         this.sendPost(body);
     }
 
